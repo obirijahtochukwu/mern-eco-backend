@@ -142,6 +142,6 @@ app.patch('/addcart', (req, res)=>{
 })
 
 
-app.listen(process.env.PORT || 4000, '0.0.0.0' , ()=>{
+app.listen(process.env.PORT || 5000, '0.0.0.0' , ()=>{
   console.log('server runnin on port 4000')
 });
