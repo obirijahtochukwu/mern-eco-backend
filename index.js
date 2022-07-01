@@ -13,23 +13,26 @@ const items = require("./products.js");
 
 const secret = 'secret123';
 
-const oldUrl = 'mongodb://localhost:27017/mern-eco';
-const newUrl = "mongodb+srv://Cluster2:obj123,.@cluster0.mwwaa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const url = "mongodb+srv://obirijatochukwu:obj123,.@cluster0.o5mdo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-mongoose.connect(oldUrl, {useNewUrlParser:true, useUnifiedTopology:true}).then(()=>{
-  console.log('database connected')
-}).catch((err)=>{
-  console.log(err)
-})
+const URL = process.env.MONGODB_URL
+
+ mongoose.connect(url, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+).then(()=>{
+  console.log('database conneted')
+  }
+).catch((err)=> console.log(err));
+
+
 
 
 const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json({extended:true}));
-app.use(cors({
-  credentials:true,
-  origin: 'http://localhost:3000',
-}));
+app.use(cors);
 app.use('/image', express.static('image'));
 
 app.get('/user', (req, res) => {
