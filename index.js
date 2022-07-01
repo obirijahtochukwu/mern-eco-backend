@@ -30,7 +30,7 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json({extended:true}));
 app.use(cors({
-  origin: 'https://ecommerce-obj.netlify.app',
+  origin: 'http://localhost:3000',
   methods: "GET, POST, PATCH, DELETE",
   credentials:true,
 }))
