@@ -26,13 +26,14 @@ const URL = process.env.MONGODB_URL
   }
 ).catch((err)=> console.log(err));
 
-
-
-
 const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json({extended:true}));
-app.use(cors);
+app.use(cors({
+  origin: 'https://ecommerce-obj.netlify.app',
+  methods: "GET, POST, PATCH, DELETE",
+  credentials:true,
+}))
 app.use('/image', express.static('image'));
 
 app.get('/user', (req, res) => {
