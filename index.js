@@ -13,7 +13,7 @@ const items = require("./products.js");
 
 const secret = 'secret123';
 
-const url = "mongodb+srv://obirijatochukwu:obj123,.@cluster0.o5mdo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const url = "mongodb+srv://obirijatochukwu:obj123,.@cluster0.o5mdo.mongodb.net/mySecondDatabase?retryWrites=true&w=majority"
 
 const URL = process.env.MONGODB_URL
 
@@ -55,8 +55,7 @@ app.post('/signup', (req, res) => {
     User.findOne({email:email}, (err, user)=>{
       if (user) {
       res.send({message: 'user already exist', user})
-      }
-      else {
+      } else if (!user) {
         const hashedPassword = bcrypt.hashSync(password, 10);
         const user = new User({password:hashedPassword,email, name});
         user.save().then(userInfo => {
@@ -68,8 +67,11 @@ app.post('/signup', (req, res) => {
               res.cookie('token', token).json({id:userInfo._id,email:userInfo.email,name:userInfo.name, cart: userInfo.cart});
             }
           });
-        });
+        })
+      } else {
+        console.log(err)
       }
+      
     })
 });
 
@@ -142,6 +144,6 @@ app.patch('/addcart', (req, res)=>{
 })
 
 
-app.listen(process.env.PORT || 5000, '0.0.0.0' , ()=>{
+app.listen(process.env.PORT || 4000, '0.0.0.0' , ()=>{
   console.log('server runnin on port 4000')
 });
